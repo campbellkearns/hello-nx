@@ -1,0 +1,22 @@
+{
+  "npmScope": "hello-nx",
+  "implicitDependencies": {
+    "workspace.json": "*",
+    "package.json": {
+      "dependencies": "*",
+      "devDependencies": "*"
+    },
+    "tsconfig.json": "*",
+    "tslint.json": "*",
+    "nx.json": "*"
+  },
+  "projects": {
+    "hello-nx": {
+      "tags": []
+    },
+    "hello-nx-e2e": {
+      "tags": [],
+      "implicitDependencies": ["hello-nx"]
+    }
+  }
+}

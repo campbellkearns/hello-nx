@@ -1,0 +1,177 @@
+{
+  "version": 1,
+  "projects": {
+    "hello-nx": {
+      "root": "apps/hello-nx",
+      "sourceRoot": "apps/hello-nx/src",
+      "projectType": "application",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/web:build",
+          "options": {
+            "outputPath": "dist/apps/hello-nx",
+            "index": "apps/hello-nx/src/index.html",
+            "main": "apps/hello-nx/src/main.tsx",
+            "polyfills": "apps/hello-nx/src/polyfills.ts",
+            "tsConfig": "apps/hello-nx/tsconfig.app.json",
+            "assets": [
+              "apps/hello-nx/src/favicon.ico",
+              "apps/hello-nx/src/assets"
+            ],
+            "styles": [],
+            "scripts": [],
+            "webpackConfig": "@nrwl/react/plugins/webpack"
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/hello-nx/src/environments/environment.ts",
+                  "with": "apps/hello-nx/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/web:dev-server",
+          "options": {
+            "buildTarget": "hello-nx:build"
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "hello-nx:build:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "config": "apps/hello-nx/.eslintrc",
+            "tsConfig": [
+              "apps/hello-nx/tsconfig.app.json",
+              "apps/hello-nx/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/hello-nx/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/hello-nx/jest.config.js",
+            "tsConfig": "apps/hello-nx/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "hello-nx-e2e": {
+      "root": "apps/hello-nx-e2e",
+      "sourceRoot": "apps/hello-nx-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/hello-nx-e2e/cypress.json",
+            "tsConfig": "apps/hello-nx-e2e/tsconfig.e2e.json",
+            "devServerTarget": "hello-nx:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "hello-nx:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "config": "apps/hello-nx-e2e/.eslintrc",
+            "tsConfig": ["apps/hello-nx-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/hello-nx-e2e/**"]
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/react"
+  },
+  "schematics": {
+    "@nrwl/workspace": {
+      "library": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/cypress": {
+      "cypress-project": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/react": {
+      "application": {
+        "style": "styled-components",
+        "linter": "eslint",
+        "babel": true
+      },
+      "component": {
+        "style": "styled-components"
+      },
+      "library": {
+        "style": "styled-components",
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/next": {
+      "application": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/web": {
+      "application": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/node": {
+      "application": {
+        "linter": "eslint"
+      },
+      "library": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/nx-plugin": {
+      "plugin": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/nest": {
+      "application": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/express": {
+      "application": {
+        "linter": "eslint"
+      }
+    }
+  },
+  "defaultProject": "hello-nx"
+}
