@@ -7,21 +7,19 @@ const StyledApp = styled.div``;
 export const App = () => {
 
   const [todos, setTodos] = useState([
-    {title: 'Learn about hooks'},
-    {title: 'Rent a Jeep'}
   ]);
 
   const addTodo = (event) => {
     event.preventDefault()
-    console.log(event.target[0])
     setTodos([...todos, {title: event.target[0].value}])
+    event.target[0].value = ''
   }
 
   return (
     <StyledApp>
       <h1>Todo List</h1>
       <ul>
-        {todos.map(todo => <li>{todo.title}</li>)}
+        {todos.length ? todos.map((todo, index) => <li key={index}>{todo.title}</li>) : "Add your first todo."}
       </ul>
       <h2>New Todo</h2>
       <form action="" onSubmit={addTodo}>
